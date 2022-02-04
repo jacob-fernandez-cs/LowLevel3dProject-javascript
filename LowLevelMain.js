@@ -1,4 +1,4 @@
-let scene, camera, renderer, sphere, cube, mouse , raycaster,xSpeed,ySpeed;
+let scene, camera, renderer, sphere, cube, cubeS, colorMixer, clock, mouse, raycaster,xSpeed,ySpeed;
 
 
 function init()
@@ -25,6 +25,10 @@ function init()
 		camera.updateProjectionMatrix();
 	
 	})
+	
+	
+	
+	
 	//adding event listener for when mouse clicks over object
 	
 	
@@ -38,18 +42,40 @@ function init()
 	var geometry2 = new THREE.BoxGeometry(1,1,1);
 	//non shiny material 
 	var material2 = new THREE.MeshLambertMaterial({color: 0xFFCC00});
-	cube = new THREE.Mesh(geometry2,material2)
+	cube = new THREE.Mesh(geometry2,material)
 	cube.position.y = 4;
+	
+	cube2 = new THREE.Mesh(geometry2,material2)
+	cube2.position.y = -4;
 	
 	var lightP = new THREE.PointLight(0xFFFFFF, 1, 250);
 	lightP.position.set(10,0,25);
 	
 	
-	
-	
 	scene.add(sphere);
 	scene.add(cube);
+	scene.add(cube2);
 	scene.add(lightP);
+	
+	//making a spinning cube that changes colors 
+	var colorAnim = new THREE.ColorKeyframeTrack(
+        ".material.color",
+        [0, 2],
+        [1, 0, 0, 0, 0, 1])
+
+	
+	var colorClip = new THREE.AnimationClip(null, 5, [colorAnim]);
+	colorMixer = new THREE.AnimationMixer(cube2);
+	
+	var colorAction = colorMixer.clipAction(colorClip);
+	
+	
+	colorAction.play();
+	
+	clock = new THREE.Clock();
+	
+	
+	
 	
 	
 	
@@ -113,12 +139,22 @@ function onWASDpress(event) {
 	
 function update()
 {
+	//getting delta time
+	var d = clock.getDelta();
+
 	requestAnimationFrame(update);
+	
+	//spinning the cube by pi * delta
+	cube2.rotation.x += Math.PI * d;
+    cube2.rotation.y += Math.PI * d;
+	
+	colorMixer.update(d * colorMixer.timeScale);
+	
+	
 	
 	
 	//calling the render method on the renderer
 	renderer.render(scene, camera);
-	
 }
 
 init();
