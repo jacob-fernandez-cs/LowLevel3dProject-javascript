@@ -5,8 +5,8 @@ function init()
 {
 	
 	//set speed for movement of objects on screen
-	 xSpeed = 0.05;
-	 ySpeed = 0.05;
+	 xSpeed = 0.15;
+	 ySpeed = 0.15;
 //create raycaster 
 	 raycaster = new THREE.Raycaster();
 	 mouse = new THREE.Vector2();
@@ -41,15 +41,16 @@ function init()
 	cube = new THREE.Mesh(geometry2,material2)
 	cube.position.y = 4;
 	
-	var light = new THREE.PointLight(0xFFFFFF, 1, 250);
-	light.position.set(10,0,25);
+	var lightP = new THREE.PointLight(0xFFFFFF, 1, 250);
+	lightP.position.set(10,0,25);
 	
 	
 	
 	
 	scene.add(sphere);
 	scene.add(cube);
-	scene.add(light);
+	scene.add(lightP);
+	
 	
 	
 	camera.position.z = 10;
@@ -74,11 +75,12 @@ for(var i = 0; i < intersects.length; i++)
 {
 	//changing object to red
 	intersects[i].object.material.color.set(0xFF0000)
-	//using the TweenMax library for animation of the object clicked
+	//using the TweenMax library for animation of the object clicked timeline allows for simple control of the timing of the animation
 	this.tl = new TimelineMax();
-	this.tl.to(intersects[i].object.scale, 1, {x: 2,ease: Expo.easeOut})
-	this.tl.to(intersects[i].object.position, .5,{x: 2,ease: Expo.easeOut})
-	this.tl.to(intersects[i].object.rotation, .5, {y: Math.PI* .5, ease : Expo.easeOut})
+	this.tl.to(intersects[i].object.scale, 1, {x: 3,ease: Expo.easeOut})
+	this.tl.to(intersects[i].object.position, .5,{x: 4,ease: Expo.easeOut})
+	//this.tl.to(intersects[i].object.position, .5,{y: 6,ease: Expo.easeOut})
+	this.tl.to(intersects[i].object.rotation, 1.5, {y: Math.PI* 1.5, ease : Expo.easeOut})
 }
 
 }
@@ -90,7 +92,7 @@ function onWASDpress(event) {
     var keyCode = event.which;
 	
 	//code 87 is 'w' code 83 is 's' code 65 is 'a' code 68 is 'd' and code 32 is 'space'
-	
+	//first set of ifs moves the cube
     if (keyCode == 87) {
         cube.position.y += ySpeed;
     } 
@@ -104,7 +106,7 @@ function onWASDpress(event) {
         cube.position.x += xSpeed;
     } 
 	else if (keyCode == 32) {
-        cube.position.set(0, 0, 0);
+        cube.position.set(0, 4, 0);
     }
 }	
 	
