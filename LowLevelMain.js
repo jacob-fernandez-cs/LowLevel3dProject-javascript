@@ -1,4 +1,4 @@
-let scene, camera, renderer, sphere, cube, cubeS, colorMixer, clock, mouse, raycaster,xSpeed,ySpeed;
+let scene, camera, renderer, sphere, cube, cube2, colorMixer, clock, mouse, raycaster,xSpeed,ySpeed;
 
 
 function init()
