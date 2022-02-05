@@ -2,7 +2,7 @@
 
 https://pages.github.iu.edu/fernajar/LowLevelProject-3d/LowLevel.html
 
-github hosted website for assignment
+github hosted website for assignment, click the shapes and move the cube with wasd and space to reset the top cubes position
 
 init()
 Here I set all my variables needed, I have created 2 geometry’s one is a cube the other is a sphere, I also have created 2 materials one that is not manipulated and another material that will be controlled to change colors
